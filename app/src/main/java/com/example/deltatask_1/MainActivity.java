@@ -14,7 +14,7 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    int date,month,year,first_two,last_two,key,day,rnd0,i,rnd,dummy,a=0;
+    int date,month,year,first_two,last_two,key,day,rnd0,i,rnd,dummy,fakeYear,a=0;
     public static int score=0;
     String fakeMonth;
     String[] options={"Option1","Option2","Option3","Option4"};
@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
                 date = random.nextInt(28) + 1;
         }
             fakeMonth=monthFake[month-1];
+            fakeYear=year;
             if(month>2)
                 month-=2;
             else
@@ -142,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
     public void setScreen(TextView ques,TextView[] opt){
         setQuestion();
         setOptions();
-        ques.setText(date+" "+fakeMonth+" "+year);
+        ques.setText(date+" "+fakeMonth+" "+fakeYear);
         for(int i=0;i<4;i++){
             opt[i].setText(options[i]);
         }
