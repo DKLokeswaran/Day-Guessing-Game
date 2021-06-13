@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:id="@+id/optionsList">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/option12"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/option1"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#10eba6"
+                android:checked="false"
+                android:onClick="clicked1"
+                android:text="Option 1"
+                android:layout_marginRight="20dp"/>
+
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/option2"
+                android:text="Option 2"
+                android:onClick="clicked2"
+                android:checked="false"
+                android:layout_below="@id/option1"
+                android:backgroundTint="#10eba6"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/option12"
+            android:layout_marginTop="10dp">
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/option3"
+                android:text="Option 3"
+                android:onClick="clicked3"
+                android:checked="false"
+                android:layout_below="@id/option2"
+                android:backgroundTint="#10eba6"
+                android:layout_marginRight="20dp"/>
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/option4"
+                android:text="Option 4"
+                android:onClick="clicked4"
+                android:checked="false"
+                android:layout_below="@id/option3"
+                android:backgroundTint="#10eba6"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/optionsList"
+        android:textSize="30sp"
+        android:textColor="#120694" />
+
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your Score: 0"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/optionsList"
+        android:layout_marginTop="60dp"/>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Guess the correct day"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/question"
+        android:layout_marginBottom="25dp"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="#000000"/>
+
+</RelativeLayout>
