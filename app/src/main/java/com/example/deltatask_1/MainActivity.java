@@ -1,5 +1,6 @@
 package com.example.deltatask_1;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -140,6 +141,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void setScreenOri(TextView ques,TextView[] opt){
+        ques.setText(date+" "+fakeMonth+" "+fakeYear);
+        for(int i=0;i<4;i++){
+            opt[i].setText(options[i]);
+        }
+        TextView scr=findViewById(R.id.score);
+        scr.setText("Your Current Score:"+score);
+    }
+
     public void setScreen(TextView ques,TextView[] opt){
         setQuestion();
         setOptions();
@@ -164,7 +174,6 @@ public class MainActivity extends AppCompatActivity {
         TextView scr=findViewById(R.id.score);
         if(rnd0==0){
             score++;
-            
             scr.setText("Your Current Score:"+score);
             TextView ques=findViewById(R.id.question);
             TextView[] opt={findViewById(R.id.option1),findViewById(R.id.option2),findViewById(R.id.option3),findViewById(R.id.option4)};
@@ -193,7 +202,6 @@ public class MainActivity extends AppCompatActivity {
         TextView scr=findViewById(R.id.score);
         if(rnd0==2){
             score++;
-
             scr.setText("Your Current Score:"+score);
             TextView ques=findViewById(R.id.question);
             TextView[] opt={findViewById(R.id.option1),findViewById(R.id.option2),findViewById(R.id.option3),findViewById(R.id.option4)};
@@ -222,7 +230,29 @@ public class MainActivity extends AppCompatActivity {
     public int getScore() {
         return score;
     }
-    public void setScore(int score) {
-        MainActivity.score = score;
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("Date",date);
+        outState.putString("Month",fakeMonth);
+        outState.putInt("Year",fakeYear);
+        outState.putStringArray("Options",options);
+        outState.putInt("CorrectOption",rnd0);
+        outState.putInt("Score",score);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        date=savedInstanceState.getInt("Date");
+        fakeMonth=savedInstanceState.getString("Month");
+        fakeYear=savedInstanceState.getInt("Year");
+        options=savedInstanceState.getStringArray("Options");
+        rnd0=savedInstanceState.getInt("CorrectOption");
+        score=savedInstanceState.getInt("Score");
+        TextView ques=findViewById(R.id.question);
+        TextView[] opt={findViewById(R.id.option1),findViewById(R.id.option2),findViewById(R.id.option3),findViewById(R.id.option4)};
+        setScreenOri(ques,opt);
     }
 }
