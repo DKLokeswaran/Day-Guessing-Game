@@ -8,11 +8,11 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RadioGroup;
+
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.os.Vibrator;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -275,6 +275,8 @@ public class MainActivity extends AppCompatActivity {
             relLay.setBackgroundColor(Color.parseColor("#ff6161"));
             bool=false;
             Toast.makeText(this, "Wrong Answer", Toast.LENGTH_SHORT).show();
+            Vibrator vibrator= (Vibrator)getSystemService(VIBRATOR_SERVICE);
+            vibrator.vibrate(500);
         }
     }
 }
