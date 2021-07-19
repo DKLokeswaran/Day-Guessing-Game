@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/lay"
     tools:context=".MainActivity">
 
 
@@ -68,6 +69,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Your Score: 0"
+        android:textSize="20sp"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/optionsList"
         android:layout_marginTop="60dp"/>
@@ -83,5 +85,15 @@
         android:textSize="30sp"
         android:textStyle="bold"
         android:textColor="#000000"/>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next"
+        android:onClick="nextLayout"
+        android:backgroundTint="#10eba6"
+        android:layout_below="@id/score"
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

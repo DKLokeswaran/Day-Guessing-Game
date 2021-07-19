@@ -4,9 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +36,11 @@ public class MainActivity extends AppCompatActivity {
             "October",
             "November",
             "December"};
+    TextView ques;
+    boolean bool,isAns=false;
+    RelativeLayout relLay;
+    Button optBut[];
+    TextView scr;
 
 
     ArrayList<Integer> array=new ArrayList<>();
@@ -141,21 +149,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void setScreenOri(TextView ques,TextView[] opt){
+    public void setScreenOri(){
         ques.setText(date+" "+fakeMonth+" "+fakeYear);
         for(int i=0;i<4;i++){
-            opt[i].setText(options[i]);
+            optBut[i].setText(options[i]);
         }
         TextView scr=findViewById(R.id.score);
         scr.setText("Your Current Score:"+score);
     }
 
-    public void setScreen(TextView ques,TextView[] opt){
+    public void setScreen(){
+        relLay.setBackgroundColor(Color.parseColor("#ffffff"));
         setQuestion();
         setOptions();
         ques.setText(date+" "+fakeMonth+" "+fakeYear);
         for(int i=0;i<4;i++){
-            opt[i].setText(options[i]);
+            optBut[i].setText(options[i]);
         }
     }
 
@@ -164,67 +173,25 @@ public class MainActivity extends AppCompatActivity {
         score=0;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        TextView ques=findViewById(R.id.question);
-        TextView[] opt={findViewById(R.id.option1),findViewById(R.id.option2),findViewById(R.id.option3),findViewById(R.id.option4)};
-        setScreen(ques,opt);
+        ques=findViewById(R.id.question);
+        optBut= new Button[]{findViewById(R.id.option1), findViewById(R.id.option2), findViewById(R.id.option3), findViewById(R.id.option4)};
+        relLay=findViewById(R.id.lay);
+        scr=findViewById(R.id.score);
+        setScreen();
     }
 
 
     public void clicked1(View view){
-        TextView scr=findViewById(R.id.score);
-        if(rnd0==0){
-            score++;
-            scr.setText("Your Current Score:"+score);
-            TextView ques=findViewById(R.id.question);
-            TextView[] opt={findViewById(R.id.option1),findViewById(R.id.option2),findViewById(R.id.option3),findViewById(R.id.option4)};
-            setScreen(ques,opt);
-        }
-        else {
-            Intent intent=new Intent(MainActivity.this,MainActivity2.class);
-            startActivity(intent);
-        }
+       click(0);
     }
     public void clicked2(View view){
-        TextView scr=findViewById(R.id.score);
-        if(rnd0==1){
-            score++;
-            scr.setText("Your Current Score:"+score);
-            TextView ques=findViewById(R.id.question);
-            TextView[] opt={findViewById(R.id.option1),findViewById(R.id.option2),findViewById(R.id.option3),findViewById(R.id.option4)};
-            setScreen(ques,opt);
-        }
-        else {
-            Intent intent=new Intent(MainActivity.this,MainActivity2.class);
-            startActivity(intent);
-        }
+        click(1);
     }
     public void clicked3(View view){
-        TextView scr=findViewById(R.id.score);
-        if(rnd0==2){
-            score++;
-            scr.setText("Your Current Score:"+score);
-            TextView ques=findViewById(R.id.question);
-            TextView[] opt={findViewById(R.id.option1),findViewById(R.id.option2),findViewById(R.id.option3),findViewById(R.id.option4)};
-            setScreen(ques,opt);
-        }
-        else {
-            Intent intent=new Intent(MainActivity.this,MainActivity2.class);
-            startActivity(intent);
-        }
+       click(2);
     }
     public void clicked4(View view){
-        TextView scr=findViewById(R.id.score);
-        if(rnd0==3){
-            score++;
-            scr.setText("Your Current Score:"+score);
-            TextView ques=findViewById(R.id.question);
-            TextView[] opt={findViewById(R.id.option1),findViewById(R.id.option2),findViewById(R.id.option3),findViewById(R.id.option4)};
-            setScreen(ques,opt);
-        }
-        else {
-            Intent intent=new Intent(MainActivity.this,MainActivity2.class);
-            startActivity(intent);
-        }
+       click(3);
     }
 
     public int getScore() {
@@ -240,6 +207,8 @@ public class MainActivity extends AppCompatActivity {
         outState.putStringArray("Options",options);
         outState.putInt("CorrectOption",rnd0);
         outState.putInt("Score",score);
+        outState.putBoolean("Answer",isAns);
+        outState.putBoolean("Correct",bool);
     }
 
     @Override
@@ -251,8 +220,61 @@ public class MainActivity extends AppCompatActivity {
         options=savedInstanceState.getStringArray("Options");
         rnd0=savedInstanceState.getInt("CorrectOption");
         score=savedInstanceState.getInt("Score");
-        TextView ques=findViewById(R.id.question);
-        TextView[] opt={findViewById(R.id.option1),findViewById(R.id.option2),findViewById(R.id.option3),findViewById(R.id.option4)};
-        setScreenOri(ques,opt);
+        isAns=savedInstanceState.getBoolean("Answer");
+        bool=savedInstanceState.getBoolean("Correct");
+       if(isAns){
+           butEnabler(false);
+           if(bool){
+               relLay.setBackgroundColor(Color.parseColor("#75ff8a"));
+           }
+           else {
+               relLay.setBackgroundColor(Color.parseColor("#ff6161"));
+           }
+       }
+//        TextView ques=findViewById(R.id.question);
+//        TextView[] opt={findViewById(R.id.option1),findViewById(R.id.option2),findViewById(R.id.option3),findViewById(R.id.option4)};
+        setScreenOri();
+    }
+    public void nextLayout(View view){
+        if(isAns){
+            if(bool){
+                butEnabler(true);
+                //            TextView ques=findViewById(R.id.question);
+//            TextView[] opt={findViewById(R.id.option1),findViewById(R.id.option2),findViewById(R.id.option3),findViewById(R.id.option4)};
+                setScreen();
+                bool=false;
+                isAns=false;
+            }
+            else {
+                Intent intent=new Intent(MainActivity.this,MainActivity2.class);
+                startActivity(intent);
+                isAns=false;
+            }
+        }
+        else {
+            Toast.makeText(this, "Answer the question first!", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+    public void butEnabler(boolean b){
+            for(int i=0;i<4;i++) {
+                optBut[i].setEnabled(b);
+            }
+    }
+    public void click(int a){
+        isAns=true;
+        butEnabler(false);
+        if(rnd0==a){
+            score++;
+            scr.setText("Your Current Score:"+score);
+            relLay.setBackgroundColor(Color.parseColor("#75ff8a"));
+            bool=true;
+            Toast.makeText(this, "Correct Answer", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            relLay.setBackgroundColor(Color.parseColor("#ff6161"));
+            bool=false;
+            Toast.makeText(this, "Wrong Answer", Toast.LENGTH_SHORT).show();
+        }
     }
 }
