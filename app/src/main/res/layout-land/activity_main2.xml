@@ -18,6 +18,7 @@
            android:layout_height="wrap_content"
            android:layout_centerVertical="true"
            android:text="Play Again"
+           android:backgroundTint="#10eba6"
            tools:layout_editor_absoluteX="76dp"
            tools:layout_editor_absoluteY="341dp"
            android:layout_marginRight="75dp"
@@ -28,8 +29,9 @@
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:layout_centerInParent="true"
-           android:text="Exit Game"
-           android:onClick="exitGame"/>
+           android:backgroundTint="#10eba6"
+           android:text="Main Menu"
+           android:onClick="mainMenu"/>
    </LinearLayout>
 
     <TextView
@@ -37,8 +39,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="You Scored:"
+        android:textStyle="bold"
         android:layout_centerHorizontal="true"
         android:layout_above="@+id/choices"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="75dp"
         android:textSize="30sp"/>
+
+    <TextView
+        android:id="@+id/msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Try Harder Next Time"
+        android:layout_below="@id/choices"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/scr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_below="@id/msg"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"/>
 </RelativeLayout>
