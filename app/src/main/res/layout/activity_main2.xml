@@ -18,6 +18,7 @@
            android:layout_height="wrap_content"
            android:layout_centerVertical="true"
            android:text="Play Again"
+           android:backgroundTint="#10eba6"
            tools:layout_editor_absoluteX="76dp"
            tools:layout_editor_absoluteY="341dp"
            android:layout_marginRight="75dp"
@@ -28,6 +29,7 @@
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:layout_centerInParent="true"
+           android:backgroundTint="#10eba6"
            android:text="Main Menu"
            android:onClick="mainMenu"/>
    </LinearLayout>

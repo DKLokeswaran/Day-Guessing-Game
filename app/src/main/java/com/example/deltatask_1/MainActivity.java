@@ -18,8 +18,8 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    int date,month,year,first_two,last_two,key,day,rnd0,i,rnd,dummy,fakeYear,a=0;
-    public static int score=0;
+    int date,month,year,first_two,last_two,key,day,rnd0,i,rnd,dummy,fakeYear,a=0,time=150,controller=0,anchor=0;
+    public static float score=0;
     String fakeMonth;
     String[] options={"Option1","Option2","Option3","Option4"};
     Random random= new Random();
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     boolean bool,isAns=false;
     RelativeLayout relLay;
     Button optBut[];
-    TextView scr;
+    TextView scr,timer;
 
 
     ArrayList<Integer> array=new ArrayList<>();
@@ -177,7 +177,37 @@ public class MainActivity extends AppCompatActivity {
         optBut= new Button[]{findViewById(R.id.option1), findViewById(R.id.option2), findViewById(R.id.option3), findViewById(R.id.option4)};
         relLay=findViewById(R.id.lay);
         scr=findViewById(R.id.score);
+        timer=findViewById(R.id.textView5);
         setScreen();
+        Thread thread=new Thread(){
+            @Override
+            public void run() {
+                try{
+                    while (!isInterrupted()){
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                timer.setText("Time Remaining: "+time+"s");
+                                if((anchor==0)&&(time==0)){
+                                    anchor++;
+                                    Intent intent=new Intent(MainActivity.this,MainActivity2.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                               if((controller==0)&&(time>0)){
+                                   time--;
+                               }
+                            }
+                        });
+                        Thread.sleep(1000);
+                    }
+                }
+                catch (Exception e){
+                    timer.setText("Error");
+                }
+            }
+        };
+        thread.start();
     }
 
 
@@ -194,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
        click(3);
     }
 
-    public int getScore() {
+    public float getScore() {
         return score;
     }
 
@@ -206,9 +236,11 @@ public class MainActivity extends AppCompatActivity {
         outState.putInt("Year",fakeYear);
         outState.putStringArray("Options",options);
         outState.putInt("CorrectOption",rnd0);
-        outState.putInt("Score",score);
+        outState.putFloat("Score",score);
         outState.putBoolean("Answer",isAns);
         outState.putBoolean("Correct",bool);
+        outState.putInt("time",time);
+        outState.putInt("control",controller);
     }
 
     @Override
@@ -219,7 +251,7 @@ public class MainActivity extends AppCompatActivity {
         fakeYear=savedInstanceState.getInt("Year");
         options=savedInstanceState.getStringArray("Options");
         rnd0=savedInstanceState.getInt("CorrectOption");
-        score=savedInstanceState.getInt("Score");
+        score=savedInstanceState.getFloat("Score");
         isAns=savedInstanceState.getBoolean("Answer");
         bool=savedInstanceState.getBoolean("Correct");
        if(isAns){
@@ -231,25 +263,24 @@ public class MainActivity extends AppCompatActivity {
                relLay.setBackgroundColor(Color.parseColor("#ff6161"));
            }
        }
+       time=savedInstanceState.getInt("time");
+       controller=savedInstanceState.getInt("control");
 //        TextView ques=findViewById(R.id.question);
 //        TextView[] opt={findViewById(R.id.option1),findViewById(R.id.option2),findViewById(R.id.option3),findViewById(R.id.option4)};
         setScreenOri();
     }
     public void nextLayout(View view){
         if(isAns){
-            if(bool){
+
                 butEnabler(true);
                 //            TextView ques=findViewById(R.id.question);
 //            TextView[] opt={findViewById(R.id.option1),findViewById(R.id.option2),findViewById(R.id.option3),findViewById(R.id.option4)};
                 setScreen();
                 bool=false;
                 isAns=false;
-            }
-            else {
-                Intent intent=new Intent(MainActivity.this,MainActivity2.class);
-                startActivity(intent);
-                isAns=false;
-            }
+                controller=0;
+
+
         }
         else {
             Toast.makeText(this, "Answer the question first!", Toast.LENGTH_SHORT).show();
@@ -263,10 +294,10 @@ public class MainActivity extends AppCompatActivity {
     }
     public void click(int a){
         isAns=true;
+        controller=1;
         butEnabler(false);
         if(rnd0==a){
             score++;
-            scr.setText("Your Current Score:"+score);
             relLay.setBackgroundColor(Color.parseColor("#75ff8a"));
             bool=true;
             Toast.makeText(this, "Correct Answer", Toast.LENGTH_SHORT).show();
@@ -274,9 +305,12 @@ public class MainActivity extends AppCompatActivity {
         else {
             relLay.setBackgroundColor(Color.parseColor("#ff6161"));
             bool=false;
+            score-=0.5;
+            time-=4;
             Toast.makeText(this, "Wrong Answer", Toast.LENGTH_SHORT).show();
             Vibrator vibrator= (Vibrator)getSystemService(VIBRATOR_SERVICE);
             vibrator.vibrate(500);
         }
+        scr.setText("Your Current Score:"+score);
     }
 }

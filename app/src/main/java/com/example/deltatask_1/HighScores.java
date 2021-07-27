@@ -17,7 +17,7 @@ public class HighScores extends AppCompatActivity {
         SharedPreferences sharedPreferences=getSharedPreferences("pref", MODE_PRIVATE);
         TextView[] scores={findViewById(R.id.hs0),findViewById(R.id.hs1),findViewById(R.id.hs2)};
         for (int i=1;i<=3;i++){
-            scores[i-1].setText(Integer.toString(sharedPreferences.getInt("highScore"+i,0)));
+            scores[i-1].setText(Float.toString(sharedPreferences.getFloat("highScore"+i,0)));
         }
     }
     public void goBack(View v){

@@ -11,7 +11,7 @@ public class MainActivity2 extends AppCompatActivity {
 
     MainActivity main=new MainActivity();
     TextView scre, hiScoreDsp, msgDsp;
-    int highscore[]={0,0,0};
+    float highscore[]={0,0,0};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,7 +19,7 @@ public class MainActivity2 extends AppCompatActivity {
         scre=(TextView) findViewById(R.id.scrView);
         hiScoreDsp =findViewById(R.id.scr);
         msgDsp =findViewById(R.id.msg);
-        int score=main.getScore();
+        float score=main.getScore();
         scre.setText("You Scored: "+score);
         getHighScore();
         for (int i=1;i<=3;i++){
@@ -56,14 +56,14 @@ public class MainActivity2 extends AppCompatActivity {
         SharedPreferences sharedPreferences=this.getSharedPreferences("pref", MODE_PRIVATE);
         SharedPreferences.Editor editor=sharedPreferences.edit();
         for(int i=1;i<=3;i++){
-            editor.putInt("highScore"+i,highscore[i-1]);
+            editor.putFloat("highScore"+i,highscore[i-1]);
         }
         editor.commit();
     }
     public void getHighScore(){
         SharedPreferences sharedPreferences=getSharedPreferences("pref", MODE_PRIVATE);
         for (int i=1;i<=3;i++){
-            highscore[i-1]=sharedPreferences.getInt("highScore"+i,0);
+            highscore[i-1]=sharedPreferences.getFloat("highScore"+i,0);
         }
     }
 }

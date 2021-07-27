@@ -85,7 +85,7 @@
         android:text="Your Score: 0"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/optionsList"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="40dp"/>
 
     <TextView
         android:id="@+id/textView"
@@ -94,7 +94,7 @@
         android:text="Guess the correct day"
         android:layout_centerHorizontal="true"
         android:layout_above="@id/question"
-        android:layout_marginBottom="25dp"
+        android:layout_marginBottom="15dp"
         android:textSize="30sp"
         android:textStyle="bold"
         android:textColor="#000000"/>
@@ -108,5 +108,16 @@
         android:backgroundTint="#10eba6"
         android:layout_below="@id/score"
         android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_below="@id/optionsList"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+        />
 
 </RelativeLayout>
